@@ -1,0 +1,189 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdvb85olq8rni"]
+
+[ext_resource type="Script" path="res://scripts/pc/pc.gd" id="1_iib7t"]
+[ext_resource type="Texture2D" uid="uid://cumfs16mhbnu7" path="res://icon.svg" id="2_fyw5y"]
+[ext_resource type="PackedScene" uid="uid://3n3r4sdqaa2w" path="res://scenes/gun/gun.tscn" id="3_0r8v7"]
+[ext_resource type="Script" path="res://scripts/pc/InGameUI.gd" id="3_isd87"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mmp77"]
+radius = 24.0
+height = 64.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_531nb"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_16ia0"]
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_rfdn1"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_yej0p"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/RLeg:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.326377, 0.0, 0.326377, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/LLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.326377, 0.0, -0.326377, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5vbhs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/RLeg:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.326377]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/LLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.162316]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cx6e7"]
+_data = {
+"RESET": SubResource("Animation_5vbhs"),
+"idle": SubResource("Animation_rfdn1"),
+"walk": SubResource("Animation_yej0p")
+}
+
+[node name="PC" type="CharacterBody2D"]
+script = ExtResource("1_iib7t")
+
+[node name="Sprites" type="Node2D" parent="."]
+modulate = Color(0, 1, 0.0313726, 1)
+y_sort_enabled = true
+position = Vector2(0, -136)
+
+[node name="Head" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 1, 0.0313726, 1)
+position = Vector2(2.27374e-13, -96)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("2_fyw5y")
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 1, 0.0313726, 1)
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.5, 1)
+texture = ExtResource("2_fyw5y")
+
+[node name="LLeg" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 1, 0.0313726, 1)
+position = Vector2(-16, 64)
+rotation = 0.162316
+scale = Vector2(0.125, 0.71875)
+texture = ExtResource("2_fyw5y")
+centered = false
+offset = Vector2(-64, 0)
+
+[node name="RLeg" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 1, 0.0313726, 1)
+position = Vector2(16, 64)
+rotation = -0.326377
+scale = Vector2(0.125, 0.71875)
+texture = ExtResource("2_fyw5y")
+centered = false
+offset = Vector2(-64, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_mmp77")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -136)
+current = true
+
+[node name="InGameUI" type="Control" parent="Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3_isd87")
+
+[node name="HealthProgressBar" type="ProgressBar" parent="Camera2D/InGameUI"]
+modulate = Color(1, 0, 0, 1)
+z_index = 4096
+layout_mode = 0
+offset_left = -944.0
+offset_top = -520.0
+offset_right = -552.0
+offset_bottom = -488.0
+step = 0.1
+value = 100.0
+show_percentage = false
+
+[node name="KillLabel" type="Label" parent="Camera2D/InGameUI"]
+layout_mode = 0
+offset_left = -944.0
+offset_top = -432.0
+offset_right = -488.0
+offset_bottom = -384.0
+text = "Score : 0"
+label_settings = SubResource("LabelSettings_531nb")
+
+[node name="MaxKillLabel" type="Label" parent="Camera2D/InGameUI"]
+layout_mode = 0
+offset_left = -944.0
+offset_top = -480.0
+offset_right = -742.0
+offset_bottom = -432.0
+text = "Max score : 0"
+label_settings = SubResource("LabelSettings_16ia0")
+
+[node name="Gun" parent="." instance=ExtResource("3_0r8v7")]
+position = Vector2(16, -152)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_mmp77")
+debug_color = Color(0.611765, 0.533333, 0.172549, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_cx6e7")
+}
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_exited" from="HurtBox" to="." method="_on_hurt_box_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

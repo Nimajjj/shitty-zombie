@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://1j2kv7vhqhj3"]
+
+[ext_resource type="Texture2D" uid="uid://cumfs16mhbnu7" path="res://icon.svg" id="1_5247p"]
+[ext_resource type="Script" path="res://scripts/zombie/zombie.gd" id="1_ocnqe"]
+[ext_resource type="Script" path="res://scripts/zombie/hurt_box.gd" id="2_4hxx5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_elajr"]
+radius = 24.0
+height = 64.0001
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsc55"]
+size = Vector2(48, 272)
+
+[node name="Zombie" type="StaticBody2D" groups=["enemies"]]
+collision_layer = 17
+script = ExtResource("1_ocnqe")
+
+[node name="Sprites" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -136)
+
+[node name="Head" type="Sprite2D" parent="Sprites"]
+position = Vector2(2.27374e-13, -96)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("1_5247p")
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.5, 1)
+texture = ExtResource("1_5247p")
+
+[node name="LLeg" type="Sprite2D" parent="Sprites"]
+position = Vector2(-16, 104)
+scale = Vector2(0.125, 0.71875)
+texture = ExtResource("1_5247p")
+
+[node name="RLeg" type="Sprite2D" parent="Sprites"]
+position = Vector2(16, 104)
+scale = Vector2(0.125, 0.71875)
+texture = ExtResource("1_5247p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_elajr")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -136)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_4hxx5")
+
+[node name="HurtBox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_dsc55")
+debug_color = Color(0.580392, 0.54902, 0.176471, 0.419608)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+offset_left = -72.0
+offset_top = -288.0
+offset_right = 72.0
+offset_bottom = -272.0
+step = 0.1
+value = 100.0
+show_percentage = false

@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://3n3r4sdqaa2w"]
+
+[ext_resource type="Script" path="res://scripts/gun/gun.gd" id="1_1kimn"]
+[ext_resource type="Texture2D" uid="uid://cumfs16mhbnu7" path="res://icon.svg" id="1_lskpc"]
+[ext_resource type="PackedScene" uid="uid://bh27su4m664ec" path="res://scenes/gun/shot_effect.tscn" id="3_ebfls"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_1kimn")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
+modulate = Color(0.160784, 0.160784, 0.160784, 1)
+position = Vector2(52, -16)
+scale = Vector2(0.9375, 0.125)
+texture = ExtResource("1_lskpc")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites"]
+modulate = Color(0.160784, 0.160784, 0.160784, 1)
+position = Vector2(104, -28)
+scale = Vector2(0.0312499, 0.0625)
+texture = ExtResource("1_lskpc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites"]
+modulate = Color(0.160784, 0.160784, 0.160784, 1)
+position = Vector2(0, 8)
+rotation = 0.261799
+scale = Vector2(0.125, 0.3125)
+texture = ExtResource("1_lskpc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites"]
+modulate = Color(0.160784, 0.160784, 0.160784, 1)
+position = Vector2(64, 4.76837e-07)
+rotation = -0.523598
+scale = Vector2(0.125, 0.28125)
+texture = ExtResource("1_lskpc")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="BulletSpawn" type="Node2D" parent="."]
+position = Vector2(112, -16)
+
+[node name="ShotEffect" parent="." instance=ExtResource("3_ebfls")]
+position = Vector2(112, -16)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

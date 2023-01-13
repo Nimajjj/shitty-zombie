@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://b47najhaqrk4j"]
+
+[ext_resource type="Script" path="res://scripts/end_game_ui/end_game_ui.gd" id="1_4nhbs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wyl8k"]
+font_size = 255
+font_color = Color(0.701961, 0, 0, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_avox5"]
+font_size = 64
+
+[sub_resource type="Theme" id="Theme_r4u00"]
+default_font_size = 64
+
+[node name="EndGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_4nhbs")
+
+[node name="GameOverLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 712.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_wyl8k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 280.0
+offset_right = 1920.0
+offset_bottom = 1000.0
+text = "SCORE : 0
+MAX SCORE : 0"
+label_settings = SubResource("LabelSettings_avox5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 800.0
+offset_right = 1448.0
+offset_bottom = 1008.0
+theme = SubResource("Theme_r4u00")
+text = "TRY AGAIN"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
